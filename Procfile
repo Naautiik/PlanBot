@@ -1,2 +1,2 @@
-web: gunicorn Planbot:app
+web: gunicorn PlanBot:app
 scheduler: python Scheduler.py
