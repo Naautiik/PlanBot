@@ -4,7 +4,6 @@ from pandasql import sqldf
 import pandas as pd
 from time import sleep
 subskrypcje = pd.read_csv("subskrypcje.csv")
-print(datetime.now().strftime('%H'))
 while True:
     if (datetime.now().strftime('%H')) == '10':
         print("sending")
