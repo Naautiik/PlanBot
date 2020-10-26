@@ -143,9 +143,11 @@ def process_message(text, sender_id):
         return"Jestem tylko robotem. Nie mam uczuć. Chociaż dla kogoś takiego jak Ty chciałbym mieć. Szkoda."
     if "dzień dobry" in formatted_message:
         return"Miło Ciebie słyszeć!"
-    if formatted_message[0:4] == "Doch":
+    if formatted_message[0:4] == "doch":
         return"Doch"
-    return("Beep boop. Nie znam tej komendy")
+    if formatted_message[0:5] == "pomoc":
+        return"subskrybuj [klasa] - codziennie o 8 będzie tobie wysyłany plan lekcji\nodsubskrybuj - usuwasz się z listy subskrypcji\nplan [klasa] - wyświetla plan dla danej klasy\nplan - wyświetla plan dla Twojej klasy, po 15 wyświetla Twój plan na jutro\nplan jutro - wyświetla plan na jutro"
+    return('Beep boop. Nie znam tej komendy. Napisz "pomoc" żeby uzyskać pełną listę komend')
 
 #kod odpowiadajacy za polaczenie z facebookiem
 @app.route('/', methods=["POST", "GET"])
