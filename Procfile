@@ -1,2 +1,2 @@
-web: python PlanBot.py
+worker: python PlanBot.py
 scheduler: python Scheduler.py
