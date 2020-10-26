@@ -5,7 +5,7 @@ import pandas as pd
 from time import sleep
 subskrypcje = pd.read_csv("subskrypcje.csv")
 while True:
-    if (datetime.now().strftime('%H')) == '10':
+    if (datetime.now().strftime('%H')) == '08':
         print("sending")
         load = sqldf("SELECT * FROM subskrypcje")
         load = load.values.tolist()
