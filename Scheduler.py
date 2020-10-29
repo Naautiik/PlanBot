@@ -4,7 +4,12 @@ from pandasql import sqldf
 import pandas as pd
 from time import sleep
 subskrypcje = pd.read_csv("subskrypcje.csv")
+
+
+
 while True:
+    print("Waiting for the right time")
+    sleep(60)
     if (datetime.now().strftime('%H')) == '08':
         print("sending")
         load = sqldf("SELECT * FROM subskrypcje")
