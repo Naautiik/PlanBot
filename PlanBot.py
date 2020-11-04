@@ -24,7 +24,7 @@ db = SQLAlchemy(app)
 
 class Subskrypcje(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
-    fb_id = db.Column(db.Integer)
+    fb_id = db.Column(db.String)
     klasa = db.Column(db.String(3))
 
     def __repr__(self):
