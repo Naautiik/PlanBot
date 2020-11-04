@@ -18,8 +18,8 @@ VERIFY_TOKEN = "fuckyes"
 
 app = Flask(__name__)
 bot = Bot(token)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 
 class Subskrypcje(db.Model):
