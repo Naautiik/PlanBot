@@ -1,4 +1,6 @@
+#
 from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
 from pymessenger import Bot
 from keys import PAGE_ACCESS_TOKEN as token
 import pandas as pd
@@ -6,14 +8,34 @@ from pandasql import sqldf
 from datetime import datetime
 from listaklas import listaklas
 import csv
+import os
+
 
 plan = pd.read_csv("lekcje.csv")
-subskrypcje = pd.read_csv("subskrypcje.csv")
-
+#subskrypcje = pdread_csv("subskrypcje.csv")
 VERIFY_TOKEN = "fuckyes"
+
 
 app = Flask(__name__)
 bot = Bot(token)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+db = SQLAlchemy(app)
+db.create_all()
+
+class Subskrypcje(db.Model):
+    ID = db.Column(db.Integer, primary_key=True)
+    fb_id = db.Column(db.Integer)
+    klasa = db.Column(db.String(3))
+
+    def __repr__(self):
+        return f"ID: {self.fb_id}, klasa: {self.klasa}"
+
+# class Post(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     content = db.Column(db.Text)
+#     def __repr__(self):
+#         return f"Post {self.id}, {self.content}"
+
 #tylko na poczatek - przy pierwszym wyloaniu zostaja zmienione
 today = weeknum = 0
 
