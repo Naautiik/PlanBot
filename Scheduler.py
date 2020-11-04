@@ -31,7 +31,7 @@ from time import sleep
 # db.session.commit()
 
 while True:
-    if (datetime.now().strftime('%H')) == '15':
+    if (datetime.now().strftime('%H')) == '17':
         print("sending")
         f = Subskrypcje.query.all()
         print(f)
