@@ -18,9 +18,9 @@ VERIFY_TOKEN = "fuckyes"
 
 app = Flask(__name__)
 bot = Bot(token)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
-db.create_all()
 
 class Subskrypcje(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
@@ -28,7 +28,8 @@ class Subskrypcje(db.Model):
     klasa = db.Column(db.String(3))
 
     def __repr__(self):
-        return f"ID: {self.fb_id}, klasa: {self.klasa}"
+        return ",".join([str(self.fb_id), self.klasa])
+db.create_all()
 
 # class Post(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
@@ -63,36 +64,23 @@ def process_message(text, sender_id):
     if formatted_message[0:10] == "subskrybuj":
         print(formatted_message)
         if str(formatted_message[11:]) in listaklas:
-            subskrypcje = pd.read_csv("subskrypcje.csv")
-            czyjest = sqldf(f"SELECT klasa FROM subskrypcje where id = {sender_id}")
-            czyjest = czyjest.values.tolist()
+            czyjest = Subskrypcje.query.filter_by(fb_id=sender_id).all()
+            print("dafuq")
             print(czyjest)
             if len(czyjest) == 0:
-                with open("subskrypcje.csv", "a", newline='') as csvf:
-                    wr = csv.writer(csvf, delimiter=",")
-                    wr.writerow([sender_id, formatted_message[11:]])
-                    return(f"Od teraz codziennie będziesz dostawać plan lekcji dla klasy {formatted_message[11:]}")
-            czyjest = str(czyjest[0]).strip("[']")
+                sub = Subskrypcje(fb_id = sender_id, klasa = formatted_message[11:])
+                db.session.add(sub)
+                db.session.commit()
+                return(f"Od teraz codziennie będziesz dostawać plan lekcji dla klasy {formatted_message[11:]}")
+            czyjest = str(formatted_message[11:])
             return f"Znajdujesz się już na liście dla klasy {czyjest}. Możesz znajdować się tylko w jednej klasie jednocześnie."
         else:
             return("Nieznana klasa. Pamiętaj, ze przed podwójny rocznik nazwy uwzględniają wielkość liter")
     print(formatted_message[0:12])
     if formatted_message[0:12] == "odsubskrybuj":
-        subs = []
-        with open("subskrypcje.csv", "r") as csvf:
-            for row in csvf:
-                if str(sender_id) not in row:
-                    subs.append(row)
-        with open("subskrypcje.csv", "w", newline='') as csvf:
-            print(subs)
-            wr = csv.writer(csvf, delimiter=",")
-            #wr.writerow(["id", "klasa"])
-            for x in subs:
-                x = str(x).split(",")
-                print(x)
-                wr.writerow([x[0].strip("[',]"), x[1][:-1].strip("[',]")])
-        return"Nie subskrybujesz już żadnej klasy."
-
+        user = Subskrypcje.query.filter_by(fb_id=sender_id).delete()
+        db.session.commit()
+        return f"Nie subskrybujesz już żadnej klasy."
     #kod podajacy plan, wywolywany recznie przez uzytkownika lub przez scheduler
     if formatted_message[0:4].lower() == "plan":
         auto = False
@@ -199,7 +187,6 @@ def webhook():
 #Kod współpracujacy ze Scheduler.py do wysyłania regularnych wiadomości. Scheduler.py wywołuje go o 8 rano
 def scheduled(sender_id,klasa):
     text = f"plan {klasa} auto"
-    print(text,"st1")
     response = process_message(text,sender_id)
     bot.send_text_message(sender_id, response)
 def ustawklase(formatted_message, sender_id):
@@ -211,14 +198,13 @@ def ustawklase(formatted_message, sender_id):
     if klasa not in listaklas and klasa != "jutro" and klasa != False:
         return False
     if klasa == "jutro" or klasa == False:
-        try:
-            subskrypcje = pd.read_csv("subskrypcje.csv")
-            klasa = sqldf(f"SELECT klasa from subskrypcje where id = {sender_id}")
-            klasa = klasa.values.tolist()
-            klasa = str(klasa[0]).strip("[']")
-        except:
-            return"SubError"
-        print(klasa, "ustawklase")
+         #try:
+            f = str(Subskrypcje.query.filter_by(fb_id=sender_id).first()).split(",")
+            print(f)
+            klasa = f[1]
+         #except:
+          #  return"SubError"
+    print(klasa, "ustawklase")
     return klasa
 
 if __name__ == "__main__":
