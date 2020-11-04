@@ -31,6 +31,7 @@ from time import sleep
 # db.session.commit()
 
 while True:
+    print("waiting")
     if (datetime.now().strftime('%H')) == '17':
         print("sending")
         f = Subskrypcje.query.all()
@@ -41,3 +42,4 @@ while True:
             scheduled(x[0], x[1])
         sleep(3600)
         #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
+    sleep(120)
