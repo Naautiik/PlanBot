@@ -32,7 +32,7 @@ from time import sleep
 
 while True:
     print("waiting")
-    if (datetime.now().strftime('%H')) == '07':
+    if (datetime.now().strftime('%H')) == '12':
         print("sending")
         f = Subskrypcje.query.all()
         print(f)
