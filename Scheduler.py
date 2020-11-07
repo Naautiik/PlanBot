@@ -37,7 +37,7 @@ from time import sleep
 
 
 while True:
-    if (datetime.today().weekday()) != 6 and (datetime.today().weekday()) != 7:
+    if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
         print((datetime.today().weekday()))
         print("waiting")
         if (datetime.now().strftime('%H')) == '10':
