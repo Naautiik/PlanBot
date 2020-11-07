@@ -1,7 +1,5 @@
 from PlanBot import scheduled, Subskrypcje, db
 from datetime import datetime
-from pandasql import sqldf
-import pandas as pd
 from time import sleep
 #subskrypcje = pd.read_csv("subskrypcje.csv")
 
@@ -29,17 +27,29 @@ from time import sleep
 # #print(user)
 # # db.session.delete(user)
 # db.session.commit()
+# f = Subskrypcje.query.all()
+# print(f)
+# for x in f:
+#     x = str(x)
+#     x = x.split(",")
+#     scheduled(x[0], x[1])
+
+
 
 while True:
-    print("waiting")
-    if (datetime.now().strftime('%H')) == '12':
-        print("sending")
-        f = Subskrypcje.query.all()
-        print(f)
-        for x in f:
-            x = str(x)
-            x = x.split(",")
-            scheduled(x[0], x[1])
-        sleep(3600)
-        #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
-    sleep(120)
+    if (datetime.today().weekday()) != "6" and (datetime.today().weekday()) != "7":
+        print("waiting")
+        if (datetime.now().strftime('%H')) == '10':
+            print("sending")
+            f = Subskrypcje.query.all()
+            print(f)
+            for x in f:
+                x = str(x)
+                x = x.split(",")
+                scheduled(x[0], x[1])
+            sleep(3600)
+            #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
+        sleep(120)
+    else:
+        print("weekend!")
+        exit()
