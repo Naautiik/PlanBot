@@ -53,4 +53,4 @@ while True:
         sleep(120)
     else:
         print("weekend!")
-        exit()
+        sleep(3600)
