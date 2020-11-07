@@ -18,8 +18,8 @@ VERIFY_TOKEN = "fuckyes"
 
 app = Flask(__name__)
 bot = Bot(token)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 
 class Subskrypcje(db.Model):
@@ -77,7 +77,7 @@ def process_message(text, sender_id):
         else:
             return("Nieznana klasa. Pamiętaj, ze przed podwójny rocznik nazwy uwzględniają wielkość liter")
     if formatted_message[0:12] == "odsubskrybuj":
-        user = Subskrypcje.query.filter_by(fb_id=sender_id).delete()
+        Subskrypcje.query.filter_by(fb_id=sender_id).delete()
         db.session.commit()
         return f"Nie subskrybujesz już żadnej klasy."
     #kod podajacy plan, wywolywany recznie przez uzytkownika lub przez scheduler
@@ -154,7 +154,14 @@ def process_message(text, sender_id):
         return"Doch"
     if formatted_message[0:5] == "pomoc":
         return"subskrybuj [klasa] - codziennie o 8 będzie tobie wysyłany plan lekcji\nodsubskrybuj - usuwasz się z listy subskrypcji\nplan [klasa] - wyświetla plan dla danej klasy\nplan - wyświetla plan dla Twojej klasy, po 15 wyświetla Twój plan na jutro\nplan jutro - wyświetla plan na jutro"
+    if formatted_message[0:4] == "doch":
+        return"Doch"
+    if formatted_message[0:4] == "doch":
+        return"Doch"
+    if formatted_message[0:4] == "doch":
+        return"Doch"
     return('Beep boop. Nie znam tej komendy. Napisz "pomoc" żeby uzyskać pełną listę komend')
+
 
 #kod odpowiadajacy za polaczenie z facebookiem
 @app.route('/', methods=["POST", "GET"])
