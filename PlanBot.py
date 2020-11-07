@@ -55,7 +55,7 @@ def dateupdate():
     weeknum = (weeknum+1) % 2
     #numer dnia w formacie 0-4 - pon-pt
     today = (datetime.today().weekday())
-    print(f"updated datenums are {today} and {weeknum}")
+    #print(f"updated datenums are {today} and {weeknum}")
 def process_message(text, sender_id):
     global today
     global weeknum
@@ -76,7 +76,6 @@ def process_message(text, sender_id):
             return f"Znajdujesz się już na liście dla klasy {czyjest}. Możesz znajdować się tylko w jednej klasie jednocześnie."
         else:
             return("Nieznana klasa. Pamiętaj, ze przed podwójny rocznik nazwy uwzględniają wielkość liter")
-    print(formatted_message[0:12])
     if formatted_message[0:12] == "odsubskrybuj":
         user = Subskrypcje.query.filter_by(fb_id=sender_id).delete()
         db.session.commit()
@@ -115,7 +114,6 @@ def process_message(text, sender_id):
             pay += "Twój plan lekcji na dzisiaj to: \n"
         elif arg in listaklas and auto == False:
             pay += f"Plan lekcji klasy {arg} na dzisiaj to: \n"
-        print(today, weeknum)
         #weekend exception
         if today == 5 or today == 6:
             if arg == "jutro" or (datetime.now().strftime('%H')) > '15':
@@ -134,7 +132,6 @@ def process_message(text, sender_id):
             pay += "\n"
         #usuwanie nadmiarowych lekcji od dolu
         testpay = pay.split("\n")
-        print(testpay)
         for y in range (8,0,-1):
             print(testpay[y][3:])
             if testpay[y][3:] == "Wolna":
@@ -186,8 +183,9 @@ def webhook():
         return ("received")
 #Kod współpracujacy ze Scheduler.py do wysyłania regularnych wiadomości. Scheduler.py wywołuje go o 8 rano
 def scheduled(sender_id,klasa):
+    print(f"sending automatic message to {sender_id}")
     text = f"plan {klasa} auto"
-    response = process_message(text,sender_id)
+    response = process_message(text, sender_id)
     bot.send_text_message(sender_id, response)
 def ustawklase(formatted_message, sender_id):
     global today
@@ -200,11 +198,9 @@ def ustawklase(formatted_message, sender_id):
     if klasa == "jutro" or klasa == False:
          #try:
             f = str(Subskrypcje.query.filter_by(fb_id=sender_id).first()).split(",")
-            print(f)
             klasa = f[1]
          #except:
           #  return"SubError"
-    print(klasa, "ustawklase")
     return klasa
 
 if __name__ == "__main__":

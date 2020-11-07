@@ -37,7 +37,7 @@ from time import sleep
 
 
 while True:
-    if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
+    #if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
         print((datetime.today().weekday()))
         print("waiting")
         if (datetime.now().strftime('%H')) == '10':
@@ -51,6 +51,6 @@ while True:
             sleep(3600)
             #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
         sleep(120)
-    else:
-        print("weekend!")
-        sleep(3600)
+    # else:
+    #     print("weekend!")
+    #     sleep(3600)
