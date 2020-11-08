@@ -203,11 +203,11 @@ def ustawklase(formatted_message, sender_id):
     if klasa not in listaklas and klasa != "jutro" and klasa != False:
         return False
     if klasa == "jutro" or klasa == False:
-         #try:
+         try:
             f = str(Subskrypcje.query.filter_by(fb_id=sender_id).first()).split(",")
             klasa = f[1]
-         #except:
-          #  return"SubError"
+         except:
+            return"SubError"
     return klasa
 
 if __name__ == "__main__":
