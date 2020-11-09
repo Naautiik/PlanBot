@@ -191,7 +191,7 @@ def webhook():
 #Kod współpracujacy ze Scheduler.py do wysyłania regularnych wiadomości. Scheduler.py wywołuje go o 8 rano
 def scheduled(sender_id,klasa):
     if sender_id == "skrr":
-        return
+        bot.send_text_message("1234", "1234")
     print(f"sending automatic message to {sender_id}")
     text = f"plan {klasa} auto"
     response = process_message(text, sender_id)

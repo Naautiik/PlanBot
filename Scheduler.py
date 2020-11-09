@@ -35,12 +35,10 @@ from time import sleep
 #     scheduled(x[0], x[1])
 
 
-sleep(8)
+godzina = "12"
 while True:
     if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
-        print((datetime.today().weekday()))
-        print("waiting")
-        if (datetime.now().strftime('%H')) == '07':
+        if (datetime.now().strftime('%H')) == godzina:
             print("sending")
             f = Subskrypcje.query.all()
             print(f)
@@ -55,7 +53,10 @@ while True:
             sleep(1690)
             scheduled("skrr", "skrr")
             #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
-        sleep(120)
+        sleep(150)
+        if (datetime.now().strftime('%H')) == str(int(godzina)-1):
+            print("waiter")
+            scheduled("skrr", "skrr")
     else:
         print("weekend!")
         sleep(3600)
