@@ -40,7 +40,7 @@ while True:
     if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
         print((datetime.today().weekday()))
         print("waiting")
-        if (datetime.now().strftime('%H')) == '07':
+        if (datetime.now().strftime('%H')) == '11':
             print("sending")
             f = Subskrypcje.query.all()
             print(f)
