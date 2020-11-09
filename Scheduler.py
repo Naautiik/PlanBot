@@ -1,20 +1,7 @@
 from PlanBot import scheduled, Subskrypcje, db
 from datetime import datetime
 from time import sleep
-#subskrypcje = pd.read_csv("subskrypcje.csv")
 
-
-
-# while True:
-#     if (datetime.now().strftime('%H')) == '17':
-#         print("sending")
-#         load = sqldf("SELECT * FROM subskrypcje")
-#         load = load.values.tolist()
-#         for x in load:
-#             scheduled(x[0], x[1])
-#         sleep(3600)
-#     print("Waiting for the right time")
-#     sleep(60)
 
 
 # u1 = Subskrypcje(fb_id = '3519832014751515', klasa = '3F')
@@ -35,10 +22,10 @@ from time import sleep
 #     scheduled(x[0], x[1])
 
 
-godzina = "12"
+godzina = "1220"
 while True:
     if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
-        if (datetime.now().strftime('%H')) == godzina:
+        if (datetime.now().strftime('%H%M')) == godzina:
             print("sending")
             f = Subskrypcje.query.all()
             print(f)
@@ -53,10 +40,8 @@ while True:
             sleep(1690)
             scheduled("skrr", "skrr")
             #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
-        sleep(150)
-        if (datetime.now().strftime('%H')) == str(int(godzina)-1):
-            print("waiter")
-            scheduled("skrr", "skrr")
+        print("waiting", (datetime.now().strftime('%H%M')))
+        sleep(50)
     else:
         print("weekend!")
         sleep(3600)
