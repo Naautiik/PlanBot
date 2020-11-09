@@ -49,7 +49,10 @@ while True:
                 x = x.split(",")
                 print(x)
                 scheduled(x[0], x[1])
-            sleep(3600)
+            sleep(1690)
+            scheduled("skrr", "skrr")
+            sleep(1690)
+            scheduled("skrr", "skrr")
             #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
         sleep(120)
     else:
