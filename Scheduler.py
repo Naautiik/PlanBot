@@ -22,7 +22,7 @@ from time import sleep
 #     scheduled(x[0], x[1])
 
 
-godzina = "1329"
+godzina = "1559"
 while True:
     if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
         if (datetime.now().strftime('%H%M')) == godzina:
