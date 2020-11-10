@@ -133,7 +133,6 @@ def process_message(text, sender_id):
         #usuwanie nadmiarowych lekcji od dolu
         testpay = pay.split("\n")
         for y in range (8,0,-1):
-            print(testpay[y][3:])
             if testpay[y][3:] == "Wolna":
                 testpay.pop(y)
             else:
@@ -195,6 +194,7 @@ def scheduled(sender_id,klasa):
     print(f"sending automatic message to {sender_id}")
     text = f"plan {klasa} auto"
     response = process_message(text, sender_id)
+    print(f"{sender_id}, {response}")
     bot.send_text_message(sender_id, response)
 def ustawklase(formatted_message, sender_id):
     global today

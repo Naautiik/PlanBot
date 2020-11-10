@@ -22,19 +22,20 @@ from time import sleep
 #     scheduled(x[0], x[1])
 
 
-godzina = "2243"
+godzina = "2255"
 while True:
     if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
         if (datetime.now().strftime('%H%M')) == godzina:
             print("sending")
             f = Subskrypcje.query.all()
             print(f)
+            scheduled("skrr", "skrr")
             for x in f:
                 x = str(x)
                 x = x.split(",")
                 print(x)
                 scheduled(x[0], x[1])
-                sleep(1)
+                sleep(2)
             sleep(1690)
             scheduled("skrr", "skrr")
             sleep(1690)
