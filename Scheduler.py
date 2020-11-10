@@ -42,7 +42,7 @@ while True:
             scheduled("skrr", "skrr")
             #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
         print("waiting", (datetime.now().strftime('%H%M')))
-        sleep(50)
+        sleep(40)
     else:
         print("weekend!")
         sleep(3600)
