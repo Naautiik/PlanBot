@@ -161,6 +161,8 @@ def process_message(text, sender_id):
         return"kc"
     if formatted_message[0:1] == ".":
         return"kRoPkA"
+    if formatted_message[0:2] == "69":
+        return"nice"
     if formatted_message[0:8] == "dobranoc":
         return"Pchły na noc!"
     if "karaluchy pod poduchy" in formatted_message:
