@@ -143,7 +143,7 @@ def process_message(text, sender_id):
     if formatted_message == "test":
         print("got here smh")
         return("I work!")
-    if formatted_message[0:8] == "dziękuję":
+    if formatted_message[0:8] == "dziękuję" or formatted_message[0:8] == "dziekuje":
         return"Do usług!"
     if "kocham cię" in formatted_message:
         return"Jestem tylko robotem. Nie mam uczuć. Chociaż dla kogoś takiego jak Ty chciałbym mieć. Szkoda."
