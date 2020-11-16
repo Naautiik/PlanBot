@@ -151,14 +151,20 @@ def process_message(text, sender_id):
         return"Miło Ciebie słyszeć!"
     if formatted_message[0:4] == "doch":
         return"Doch"
+    if formatted_message[0:3] == "hej":
+        return"Witam!"
     if formatted_message[0:5] == "pomoc":
         return"subskrybuj [klasa] - codziennie o 8 będzie tobie wysyłany plan lekcji\nodsubskrybuj - usuwasz się z listy subskrypcji\nplan [klasa] - wyświetla plan dla danej klasy\nplan - wyświetla plan dla Twojej klasy, po 15 wyświetla Twój plan na jutro\nplan jutro - wyświetla plan na jutro"
-    if formatted_message[0:4] == "doch":
-        return"Doch"
-    if formatted_message[0:4] == "doch":
-        return"Doch"
-    if formatted_message[0:4] == "doch":
-        return"Doch"
+    if formatted_message[0:5] == "potas":
+        return"Węgiel!"
+    if formatted_message[0:2] == "kc":
+        return"kc"
+    if formatted_message[0:1] == ".":
+        return"kRoPkA"
+    if formatted_message[0:8] == "dobranoc":
+        return"Pchły na noc!"
+    if "karaluchy pod poduchy" in formatted_message:
+        return"A szczypawki do zabawki!"
     return('Beep boop. Nie znam tej komendy. Napisz "pomoc" żeby uzyskać pełną listę komend')
 
 
