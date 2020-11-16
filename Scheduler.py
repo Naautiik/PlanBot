@@ -22,7 +22,7 @@ from time import sleep
 #     scheduled(x[0], x[1])
 
 
-godzina = "1000"
+godzina = "1042"
 while True:
     if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
         if (datetime.now().strftime('%H%M')) == godzina or (datetime.now().strftime('%H%M')) == str(int(godzina)+1):
@@ -36,11 +36,6 @@ while True:
                 print(x)
                 scheduled(x[0], x[1])
                 sleep(2)
-            sleep(1690)
-            scheduled("skrr", "skrr")
-            sleep(1690)
-            scheduled("skrr", "skrr")
-            #możliwy błąd jeśli scheduler się obudzi o np. 830 to zapomni o sleepie
         print("waiting", (datetime.now().strftime('%H%M')))
         sleep(40)
     else:
