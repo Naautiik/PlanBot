@@ -22,9 +22,12 @@ from time import sleep
 #     scheduled(x[0], x[1])
 
 godzina = "0700"
+
+g2 = str(godzina[0:3] + str(int(godzina[3])+1))
+
 while True:
     if (datetime.today().weekday()) != 5 and (datetime.today().weekday()) != 6:
-        if (datetime.now().strftime('%H%M')) == godzina or (datetime.now().strftime('%H%M')) == str(int(godzina)+1):
+        if (datetime.now().strftime('%H%M')) == godzina or (datetime.now().strftime('%H%M')) == g2:
             print("sending")
             f = Subskrypcje.query.all()
             print(f)
@@ -37,7 +40,10 @@ while True:
                 sleep(2)
             sleep(3600)
         print("waiting", (datetime.now().strftime('%H%M')))
-        sleep(40)
+        if (datetime.now().strftime('%H')) == '07':
+            sleep(20)
+        else:
+            sleep(40)
     else:
         print("weekend!")
         sleep(3600)
