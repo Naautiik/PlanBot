@@ -21,7 +21,7 @@ from time import sleep
 #     x = x.split(",")
 #     scheduled(x[0], x[1])
 
-godzina = "1100"
+godzina = "0700"
 
 g2 = str(godzina[0:3] + str(int(godzina[3])+1))
 
